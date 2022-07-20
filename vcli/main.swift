@@ -1,7 +1,7 @@
 import Foundation
 import ArgumentParser
 
-import ValeraSDK
+import VDK
 
 struct Stacks: ParsableCommand {
     static var configuration = CommandConfiguration(
@@ -19,7 +19,7 @@ struct Stacks: ParsableCommand {
         func run() throws {
             var error: NSError?
 
-            let phrase = ValeraSDKNewPhrase(length, &error)
+            let phrase = VDKNewPhrase(length, &error)
 
             if error != nil {
                 throw error!
@@ -44,16 +44,15 @@ struct Stacks: ParsableCommand {
         func run() throws {
             var error: NSError?
 
-            let wallet = ValeraSDKNewWalletFromPhrase(phrase, password, &error)
+            let wallet = VDKNewWalletFromPhrase(phrase, password, &error)
 
             if error != nil {
                 throw error!
             }
 
             let account_ = try! wallet!.account(account)
-            let principal = try! account_.principal()
 
-            let stacks = principal.stacks(&error)
+            let stacks = account_.principal!.stacks(&error)
 
             if error != nil {
                 throw error!
@@ -61,7 +60,7 @@ struct Stacks: ParsableCommand {
 
             print("stacks: ", stacks)
 
-            let bitcoin = principal.bitcoin(&error)
+            let bitcoin = account_.principal!.bitcoin(&error)
 
             if error != nil {
                 throw error!
@@ -92,16 +91,10 @@ struct Stacks: ParsableCommand {
         @Option(name: [.customLong("memo"), .customShort("M")], help: "memo.")
         var memo = ""
         
-        @Option(name: [.customLong("fee"), .customShort("F")], help: "fee in uSTX.")
-        var fee = 0
-        
-        @Option(name: [.customLong("nonce"), .customShort("N")], help: "nonce.")
-        var nonce = 0
-        
         func run() throws {
             var error: NSError?
 
-            let wallet = ValeraSDKNewWalletFromPhrase(phrase, password, &error)
+            let wallet = VDKNewWalletFromPhrase(phrase, password, &error)
 
             if error != nil {
                 throw error!
@@ -109,14 +102,14 @@ struct Stacks: ParsableCommand {
 
             let derived = try! wallet!.account(account)
 
-            let principal = ValeraSDKPrincipal(recipient)
-            let transfer = ValeraSDKNewTokenTransfer(principal, amount, memo, nil, false, &error)
+            let principal = VDKPrincipal(recipient)
+            let transfer = VDKNewTokenTransfer(principal, amount, memo, &error)
             
             if error != nil {
                 throw error!
             }
             
-            try! transfer!.sign(derived, fee: fee, nonce: nonce)
+            try! transfer!.sign(derived)
             
             let encoded = transfer!.encode(&error)
             
@@ -146,16 +139,10 @@ struct Stacks: ParsableCommand {
         @Option(name: [.customLong("body"), .customShort("B")], help: "body of the contract.")
         var body = ""
         
-        @Option(name: [.customLong("fee"), .customShort("F")], help: "fee in uSTX.")
-        var fee = 180
-        
-        @Option(name: [.customLong("nonce"), .customShort("N")], help: "nonce.")
-        var nonce = 0
-        
         func run() throws {
             var error: NSError?
 
-            let wallet = ValeraSDKNewWalletFromPhrase(phrase, password, &error)
+            let wallet = VDKNewWalletFromPhrase(phrase, password, &error)
 
             if error != nil {
                 throw error!
@@ -163,13 +150,13 @@ struct Stacks: ParsableCommand {
 
             let account_ = try! wallet!.account(account)
 
-            let smartContract = ValeraSDKNewSmartContract(name, body, nil, false, &error)
+            let smartContract = VDKNewSmartContract(name, body, &error)
             
             if error != nil {
                 throw error!
             }
             
-            try! smartContract!.sign(account_, fee: fee, nonce: nonce)
+            try! smartContract!.sign(account_)
             
             let encoded = smartContract!.encode(&error)
             
@@ -199,7 +186,7 @@ struct Stacks: ParsableCommand {
         func run() throws {
             var error: NSError?
             
-            let wallet = ValeraSDKNewWalletFromPhrase(phrase, password, &error)
+            let wallet = VDKNewWalletFromPhrase(phrase, password, &error)
 
             if error != nil {
                 throw error!
@@ -207,7 +194,7 @@ struct Stacks: ParsableCommand {
 
             let account_ = try! wallet!.account(account)
             
-            let transaction_ = ValeraSDKParseStacksTransaction(transaction, &error)
+            let transaction_ = VDKParseStacksTransaction(transaction, &error)
             
             if error != nil {
                 throw error!
