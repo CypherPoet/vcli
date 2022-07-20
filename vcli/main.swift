@@ -174,33 +174,19 @@ struct Stacks: ParsableCommand {
         @Option(name: [.customLong("phrase"), .customShort("P")], help: "seed phrase.")
         var phrase = ""
         
-        @Option(name: [.customLong("account"), .customShort("A")], help: "index of account.")
-        var account = 0
-        
-        @Option(name: [.customLong("password"), .customShort("W")], help: "password.")
-        var password = ""
-        
         @Argument(help: "hex encoded transaction.")
         var transaction: String
         
         func run() throws {
             var error: NSError?
-            
-            let wallet = VDKNewWalletFromPhrase(phrase, password, &error)
-
-            if error != nil {
-                throw error!
-            }
-
-            let account_ = try! wallet!.account(account)
-            
+ 
             let transaction_ = VDKParseStacksTransaction(transaction, &error)
             
             if error != nil {
                 throw error!
             }
             
-            try! transaction_!.broadcast(account_)
+            try! transaction_!.broadcast()
         }
     }
 }
