@@ -1,0 +1,15 @@
+{
+  "configurations": [
+    {
+      "type": "lldb",
+      "request": "launch",
+      "name": "Test VCLI",
+      "program": "/Applications/Xcode.app/Contents/Developer/usr/bin/xctest",
+      "args": [".build/debug/VCLIPackageTests.xctest"],
+      "cwd": "${workspaceFolder:VCLI}",
+
+      // https://github.com/swift-server/vscode-swift#automatic-task-creation
+      "preLaunchTask": "swift: Build All"
+    }
+  ]
+}

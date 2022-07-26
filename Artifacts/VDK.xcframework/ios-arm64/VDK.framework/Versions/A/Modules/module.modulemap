@@ -1,0 +1,8 @@
+framework module "VDK" {
+	header "ref.h"
+    header "VDK.objc.h"
+    header "Universe.objc.h"
+    header "VDK.h"
+
+    export *
+}

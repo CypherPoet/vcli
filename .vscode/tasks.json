@@ -1,0 +1,21 @@
+{
+  "version": "2.0.0",
+  "tasks": [
+    // https://github.com/apple/swift-docc-plugin#previewing-documentation
+    {
+      "type": "swift",
+      "command": "swift",
+      "args": [
+        "package",
+        "--disable-sandbox",
+        "preview-documentation",
+        "--target",
+        "VCLI"
+      ],
+      "cwd": "${workspaceFolder:VCLI}",
+      "problemMatcher": ["$swiftc"],
+      "label": "swift: Preview Documentation for `VCLI`",
+      "detail": "Preview DocC Documentation for the `VCLI` target"
+    }
+  ]
+}
