@@ -14,22 +14,27 @@ extension VCLI {
 
         // MARK: - ParsableCommand
 
-        public static var configuration = CommandConfiguration(abstract: "create a new seed phrase.")
-        
+        public static var configuration = CommandConfiguration(
+            abstract: "create a new seed phrase."
+        )
+
         
         @Option(
             name: [
-                .customLong("word-count"),
+                .long,
             ],
-            help: "The total number of words in seed phrase, between 12 - 24."
+            help: """
+            The total number of words in seed phrase, between 12 - 24.
+            """,
+            transform: Self.parseWordCountArgument
         )
-        public var length = 24
+        public var wordCount = 24
         
         
         public func run() throws {
             var error: NSError?
             
-            let phrase = VDKNewPhrase(length, &error)
+            let phrase = VDKNewPhrase(wordCount, &error)
             
             if let error {
                 throw Error.newPhraseCreationFailed(error: error)
@@ -49,3 +54,21 @@ extension VCLI.NewSeedPhrase {
         case newPhraseCreationFailed(error: Swift.Error)
     }
 }
+
+
+extension VCLI.NewSeedPhrase {
+    
+    static func parseWordCountArgument(_ string: String) throws -> Int {
+        guard let number = Int(string) else {
+            throw ValidationError("Argument must be parsable as an integer.")
+        }
+        
+        guard (12...24).contains(number) else {
+            throw ValidationError("Seed phrase must be between 12 and 24 words.")
+        }
+        
+        return number
+    }
+    
+}
+
