@@ -34,7 +34,7 @@ extension VCLI {
             let phrase = VDKNewPhrase(wordCount.rawValue, &error)
             
             if let error {
-                throw Error.newPhraseCreationFailed(error: error)
+                throw Error.newSeedPhraseCreationFailed(error: error)
             }
 
             print(phrase)
@@ -48,7 +48,7 @@ extension VCLI {
 extension VCLI.NewSeedPhrase {
     
     enum Error: Swift.Error {
-        case newPhraseCreationFailed(error: Swift.Error)
+        case newSeedPhraseCreationFailed(error: Swift.Error)
     }
 }
 
