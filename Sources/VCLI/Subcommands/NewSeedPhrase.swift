@@ -66,16 +66,21 @@ extension VCLI.NewSeedPhrase {
 
 extension VCLI.NewSeedPhrase.SeedLength {
     
-    public static func name(for value: Self) -> NameSpecification {
-        switch value {
+    public var longArgumentName: String {
+        switch self {
         case .twelveWords:
-            return [.customLong("12-words")]
+            return "12-words"
         case .fifteenWords:
-            return [.customLong("15-words")]
+            return "15-words"
         case .eighteenWords:
-            return [.customLong("18-words")]
+            return "18-words"
         case .twentyFourWords:
-            return [.customLong("24-words")]
+            return "24-words"
         }
+    }
+    
+    
+    public static func name(for value: Self) -> NameSpecification {
+        [.customLong(value.longArgumentName)]
     }
 }
