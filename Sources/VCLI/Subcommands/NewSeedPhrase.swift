@@ -55,23 +55,6 @@ extension VCLI.NewSeedPhrase {
 
 extension VCLI.NewSeedPhrase {
     
-    static internal func parseWordCountArgument(_ string: String) throws -> Int {
-        guard let number = Int(string) else {
-            throw ValidationError("Argument must be parsable as an integer.")
-        }
-        
-        guard (12...24).contains(number) else {
-            throw ValidationError("Seed phrase must be between 12 and 24 words.")
-        }
-        
-        return number
-    }
-    
-}
-
-
-extension VCLI.NewSeedPhrase {
-    
     public enum SeedLength: Int, EnumerableFlag {
         case twelveWords = 12
         case fifteenWords = 15
