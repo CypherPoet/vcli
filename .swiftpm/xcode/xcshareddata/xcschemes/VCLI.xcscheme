@@ -77,6 +77,10 @@
       <CommandLineArguments>
          <CommandLineArgument
             argument = "help"
+            isEnabled = "YES">
+         </CommandLineArgument>
+         <CommandLineArgument
+            argument = "get-account"
             isEnabled = "NO">
          </CommandLineArgument>
          <CommandLineArgument

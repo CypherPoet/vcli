@@ -76,24 +76,28 @@
       </BuildableProductRunnable>
       <CommandLineArguments>
          <CommandLineArgument
-            argument = "help"
-            isEnabled = "NO">
-         </CommandLineArgument>
-         <CommandLineArgument
             argument = "new-seed-phrase"
             isEnabled = "YES">
          </CommandLineArgument>
          <CommandLineArgument
-            argument = "--word-count"
-            isEnabled = "YES">
-         </CommandLineArgument>
-         <CommandLineArgument
-            argument = "20"
+            argument = "--help"
             isEnabled = "NO">
          </CommandLineArgument>
          <CommandLineArgument
-            argument = "18"
-            isEnabled = "YES">
+            argument = "--12-words"
+            isEnabled = "NO">
+         </CommandLineArgument>
+         <CommandLineArgument
+            argument = "--15-words"
+            isEnabled = "NO">
+         </CommandLineArgument>
+         <CommandLineArgument
+            argument = "--18-words"
+            isEnabled = "NO">
+         </CommandLineArgument>
+         <CommandLineArgument
+            argument = "--24-words"
+            isEnabled = "NO">
          </CommandLineArgument>
       </CommandLineArguments>
    </LaunchAction>

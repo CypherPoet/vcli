@@ -15,26 +15,23 @@ extension VCLI {
         // MARK: - ParsableCommand
 
         public static var configuration = CommandConfiguration(
-            abstract: "create a new seed phrase."
+            abstract: "Creates a new BIP39 mnemonic seed phrase."
         )
 
         
-        @Option(
-            name: [
-                .long,
-            ],
+        @Flag(
+            exclusivity: .exclusive,
             help: """
-            The total number of words in seed phrase, between 12 - 24.
-            """,
-            transform: Self.parseWordCountArgument
+            The total number of words in the seed phrase.
+            """
         )
-        public var wordCount = 24
+        public var wordCount: SeedLength = .twelveWords
         
         
         public func run() throws {
             var error: NSError?
             
-            let phrase = VDKNewPhrase(wordCount, &error)
+            let phrase = VDKNewPhrase(wordCount.rawValue, &error)
             
             if let error {
                 throw Error.newPhraseCreationFailed(error: error)
@@ -58,7 +55,7 @@ extension VCLI.NewSeedPhrase {
 
 extension VCLI.NewSeedPhrase {
     
-    static func parseWordCountArgument(_ string: String) throws -> Int {
+    static internal func parseWordCountArgument(_ string: String) throws -> Int {
         guard let number = Int(string) else {
             throw ValidationError("Argument must be parsable as an integer.")
         }
@@ -72,3 +69,30 @@ extension VCLI.NewSeedPhrase {
     
 }
 
+
+extension VCLI.NewSeedPhrase {
+    
+    public enum SeedLength: Int, EnumerableFlag {
+        case twelveWords = 12
+        case fifteenWords = 15
+        case eighteenWords = 18
+        case twentyFourWords = 24
+    }
+}
+
+
+extension VCLI.NewSeedPhrase.SeedLength {
+    
+    public static func name(for value: Self) -> NameSpecification {
+        switch value {
+        case .twelveWords:
+            return [.customLong("12-words")]
+        case .fifteenWords:
+            return [.customLong("15-words")]
+        case .eighteenWords:
+            return [.customLong("18-words")]
+        case .twentyFourWords:
+            return [.customLong("24-words")]
+        }
+    }
+}
