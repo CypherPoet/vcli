@@ -23,6 +23,7 @@ public struct VCLI: ParsableCommand {
             GetAccount.self,
             TokenTransfer.self,
             CreateContract.self,
+            CreateContractCall.self,
             Broadcast.self
         ],
         defaultSubcommand: nil

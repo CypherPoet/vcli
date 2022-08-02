@@ -80,11 +80,23 @@
             isEnabled = "YES">
          </CommandLineArgument>
          <CommandLineArgument
+            argument = "create-contract-call"
+            isEnabled = "NO">
+         </CommandLineArgument>
+         <CommandLineArgument
+            argument = "create-contract"
+            isEnabled = "NO">
+         </CommandLineArgument>
+         <CommandLineArgument
             argument = "get-account"
             isEnabled = "NO">
          </CommandLineArgument>
          <CommandLineArgument
             argument = "new-seed-phrase"
+            isEnabled = "NO">
+         </CommandLineArgument>
+         <CommandLineArgument
+            argument = "--help"
             isEnabled = "NO">
          </CommandLineArgument>
       </CommandLineArguments>
