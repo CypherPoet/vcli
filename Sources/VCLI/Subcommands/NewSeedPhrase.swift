@@ -43,16 +43,6 @@ extension VCLI {
 }
 
 
-// MARK: - Error Handling
-
-extension VCLI.NewSeedPhrase {
-    
-    enum Error: Swift.Error {
-        case newSeedPhraseCreationFailed(error: Swift.Error)
-    }
-}
-
-
 extension VCLI.NewSeedPhrase {
     
     public enum SeedLength: Int, EnumerableFlag {
@@ -82,5 +72,15 @@ extension VCLI.NewSeedPhrase.SeedLength {
     
     public static func name(for value: Self) -> NameSpecification {
         [.customLong(value.longArgumentName)]
+    }
+}
+
+
+// MARK: - Error Handling
+
+extension VCLI.NewSeedPhrase {
+    
+    enum Error: Swift.Error {
+        case newSeedPhraseCreationFailed(error: Swift.Error)
     }
 }
